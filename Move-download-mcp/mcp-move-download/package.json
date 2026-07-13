@@ -1,0 +1,16 @@
+{
+  "name": "mcp-move-download",
+  "version": "1.0.0",
+  "description": "Serveur MCP avec un outil unique move_download : déplace un fichier récemment téléchargé depuis %USERPROFILE%/Downloads vers un dossier choisi par le LLM.",
+  "type": "module",
+  "main": "server.js",
+  "bin": {
+    "mcp-move-download": "server.js"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0"
+  }
+}

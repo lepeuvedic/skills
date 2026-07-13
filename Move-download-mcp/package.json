@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "mcp-move-download": "file:mcp-move-download"
+  }
+}

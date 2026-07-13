@@ -104,6 +104,12 @@ Demonstrates **visualization of the reconciliation results** over time:
 - **OpenERP MCP** – Query and extract GL data, fiscal years, periods
 
 ### Supporting Components
+- **Move-Download MCP** (`Move-download-mcp/`) – File management utility for organizing downloads
+  - Single tool: `move_download(filename, destination)`
+  - Safely moves recently-downloaded files (< 5 min old) from Downloads to project folders
+  - Used by invoice recovery workflow to organize newly-downloaded receipts
+  - Node.js server; ready to deploy
+
 - **OpenERP MCP Server** (`OpenERP-mcp/`) – Local MCP bridge to Odoo/OpenERP instance
   - Source code: `openerp-mcp-server/openerp_mcp/`
   - Pre-built bundle: `mcpb-bundle/` (ready to deploy)
@@ -162,6 +168,14 @@ c:\tools\skills\
 ├── github-invoices.skill                (GitHub-specific invoice logic)
 ├── stockage-justificatifs-qonto.skill   (attach to Qonto)
 ├── openerp-soldes-fin-trimestre.skill   (quarterly reconciliation)
+│
+├── Move-download-mcp/                   (File management MCP server)
+│   ├── package.json                     (Node.js dependencies)
+│   ├── package-lock.json                (dependency lock)
+│   └── mcp-move-download/
+│       ├── server.js                    (MCP server)
+│       ├── package.json
+│       └── README.md
 │
 └── OpenERP-mcp/                         (OpenERP MCP server)
     ├── mcpb-bundle/                     (pre-built MCP bundle, ready to run)
