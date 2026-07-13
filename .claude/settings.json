@@ -8,7 +8,15 @@
       "Read(//c/tools/**)",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(gh pr create --title 'Qonto MCP Hackathon: Complete README and cleanup' --body ' *)"
+      "Bash(gh pr create --title 'Qonto MCP Hackathon: Complete README and cleanup' --body ' *)",
+      "Bash(git push *)",
+      "Bash(git config *)",
+      "Bash(GIT_TRACE=1 git push -u origin lepeuvedic)",
+      "Bash(git remote *)",
+      "Bash(git checkout *)",
+      "Bash(git merge *)",
+      "Bash(git branch *)",
+      "Bash(git commit *)"
     ]
   }
 }
