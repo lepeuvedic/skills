@@ -1,0 +1,25 @@
+# Exclude dev/build artefacts from the .mcpb package.
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.env
+.env.*
+!.env.example
+tests/
+scripts/
+.git/
+.gitignore
+*.log
+.DS_Store
+.mcpb
+*.mcpb
+build-mcpb.ps1
+build-mcpb.sh
+cert.pem
+key.pem

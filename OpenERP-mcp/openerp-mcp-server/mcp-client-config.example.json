@@ -1,0 +1,21 @@
+{
+  "_comment": "Example MCP client entry (Claude Desktop / Cowork). Adjust the absolute paths to your machine, then merge the 'openerp' key into your client's mcpServers.",
+  "mcpServers": {
+    "openerp": {
+      "command": "C:\\Users\\lepeu\\Documents\\Claude\\OpenERP-mcp\\openerp-mcp-server\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "openerp_mcp.server"],
+      "cwd": "C:\\Users\\lepeu\\Documents\\Claude\\OpenERP-mcp\\openerp-mcp-server",
+      "env": {
+        "OPENERP_HOST": "erp.example.com",
+        "OPENERP_DB": "mycompany",
+        "OPENERP_LOGIN": "admin",
+        "OPENERP_PASSWORD": "change-me",
+        "OPENERP_PORT": "443",
+        "OPENERP_PROTOCOL": "xmlrpcs",
+        "OPENERP_VERIFY_TLS": "true",
+        "OPENERP_LOCKED_ACCOUNTS": "",
+        "OPENERP_LOCKED_JOURNALS": ""
+      }
+    }
+  }
+}

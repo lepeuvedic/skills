@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openerp-mcp-server"
+version = "0.1.0"
+description = "MCP server exposing OpenERP 7 / Odoo via odoo-client-lib, HTTPS-forced behind Traefik, with a neutral business layer (validation hooks, locked accounts/journals, transactions)."
+readme = "README.md"
+requires-python = ">=3.14"
+license = { text = "BSD-3-Clause" }
+authors = [{ name = "Calcool" }]
+dependencies = [
+    "mcp>=1.2.0",
+    "odoo-client-lib==2.0.1+calcool.311",
+    "httpx>=0.23.2",
+    "pydantic>=2.6",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+openerp-mcp = "openerp_mcp.server:main"
+
+[tool.setuptools]
+packages = ["openerp_mcp"]
+
+[tool.setuptools.package-data]
+openerp_mcp = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+

@@ -1,0 +1,122 @@
+{
+  "manifest_version": "0.4",
+  "name": "openerp-mcp-server",
+  "display_name": "OpenERP MCP",
+  "version": "0.1.0",
+  "description": "Accès à OpenERP 7 / Odoo via odoo-client-lib, en HTTPS forcé derrière Traefik, avec une couche métier neutre (validation, verrouillage de comptes/journaux, transactions).",
+  "long_description": "Serveur MCP exposant un OpenERP 7 / Odoo à travers l'abstraction de modèle de odoo-client-lib. La connexion est forcée en HTTPS (le serveur est derrière un proxy Traefik qui termine TLS). L'interface reste simple (search_read, read, create, write, unlink, call, fields_get, whoami) mais chaque opération transite par une couche métier neutre qui héberge des hooks de validation, un registre de comptes et journaux verrouillés, et un contexte de transaction multi-opérations — un point de passage unique pour garantir, à terme, des écritures comptables conformes sans pouvoir être contourné par un accès direct aux modèles.",
+  "author": {
+    "name": "Calcool",
+    "email": "president@calcool.ai"
+  },
+  "icon": "icon.png",
+  "license": "BSD-3-Clause",
+  "keywords": ["openerp", "odoo", "erp", "accounting", "xmlrpc", "traefik"],
+  "server": {
+    "type": "uv",
+    "entry_point": "src/openerp_mcp/server.py",
+    "mcp_config": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "${__dirname}",
+        "python",
+        "-m",
+        "openerp_mcp.server"
+      ],
+      "env": {
+        "OPENERP_HOST": "${user_config.host}",
+        "OPENERP_DB": "${user_config.database}",
+        "OPENERP_LOGIN": "${user_config.login}",
+        "OPENERP_PASSWORD": "${user_config.password}",
+        "OPENERP_PORT": "${user_config.port}",
+        "OPENERP_PROTOCOL": "${user_config.protocol}",
+        "OPENERP_VERIFY_TLS": "${user_config.verify_tls}",
+        "OPENERP_LOCKED_ACCOUNTS": "${user_config.locked_accounts}",
+        "OPENERP_LOCKED_JOURNALS": "${user_config.locked_journals}"
+      }
+    }
+  },
+  "tools": [
+    { "name": "openerp_search_read", "description": "Recherche et lit des enregistrements d'un modèle OpenERP en un appel." },
+    { "name": "openerp_read", "description": "Lit des enregistrements par id." },
+    { "name": "openerp_create", "description": "Crée un enregistrement (soumis aux hooks et au verrouillage)." },
+    { "name": "openerp_write", "description": "Met à jour des enregistrements (soumis aux hooks et au verrouillage)." },
+    { "name": "openerp_unlink", "description": "Supprime des enregistrements (soumis aux hooks et au verrouillage)." },
+    { "name": "openerp_call", "description": "Appelle une méthode arbitraire d'un modèle (boutons de workflow, etc.)." },
+    { "name": "openerp_fields_get", "description": "Décrit les champs d'un modèle (noms, types, libellés)." },
+    { "name": "openerp_whoami", "description": "Renvoie l'utilisateur authentifié et la politique de verrouillage active." }
+  ],
+  "compatibility": {
+    "claude_desktop": ">=0.12.0",
+    "platforms": ["win32", "darwin", "linux"],
+    "runtimes": {
+      "python": ">=3.11,<4.0"
+    }
+  },
+  "user_config": {
+    "host": {
+      "type": "string",
+      "title": "Hôte OpenERP",
+      "description": "Nom d'hôte exposé par Traefik (ex. portal.critical-optimisation.com). Sans https:// ni port.",
+      "required": true
+    },
+    "database": {
+      "type": "string",
+      "title": "Base de données",
+      "description": "Nom de la base OpenERP (ex. criticaldev).",
+      "required": true
+    },
+    "login": {
+      "type": "string",
+      "title": "Login",
+      "description": "Identifiant de connexion OpenERP.",
+      "required": true
+    },
+    "password": {
+      "type": "string",
+      "title": "Mot de passe",
+      "description": "Mot de passe ou clé API. Saisi par vous, stocké de façon sécurisée, jamais inclus dans le bundle.",
+      "sensitive": true,
+      "required": true
+    },
+    "port": {
+      "type": "number",
+      "title": "Port TLS",
+      "description": "Port HTTPS exposé par Traefik (443 par défaut).",
+      "default": 443,
+      "min": 1,
+      "max": 65535,
+      "required": false
+    },
+    "protocol": {
+      "type": "string",
+      "title": "Protocole",
+      "description": "xmlrpcs (recommandé pour OpenERP 7) ou jsonrpcs. HTTPS uniquement.",
+      "default": "xmlrpcs",
+      "required": false
+    },
+    "verify_tls": {
+      "type": "boolean",
+      "title": "Vérifier le certificat TLS",
+      "description": "Garder activé en production. À désactiver seulement pour un certificat auto-signé de test.",
+      "default": true,
+      "required": false
+    },
+    "locked_accounts": {
+      "type": "string",
+      "title": "Comptes verrouillés",
+      "description": "Codes account.account en lecture seule, séparés par des virgules. Laisser vide = aucun (neutre).",
+      "default": "",
+      "required": false
+    },
+    "locked_journals": {
+      "type": "string",
+      "title": "Journaux verrouillés",
+      "description": "Codes account.journal en lecture seule, séparés par des virgules. Laisser vide = aucun (neutre).",
+      "default": "",
+      "required": false
+    }
+  }
+}
