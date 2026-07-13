@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"c:\\\\tools\\\\skills\" branch lepeuvedic)",
+      "Bash(git -C \"c:\\\\tools\\\\skills\" checkout lepeuvedic)",
+      "Bash(dir /S /B *.skill)",
+      "Bash(ls -la \"c:\\\\tools\\\\skills\\\\\" | head -20)",
+      "Read(//c/tools/**)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(gh pr create --title 'Qonto MCP Hackathon: Complete README and cleanup' --body ' *)"
+    ]
+  }
+}
